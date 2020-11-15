@@ -1,6 +1,6 @@
 import * as JSON from '../object/json';
 import { Tree } from "../object/tree";
-import { applyOperations, calculateOperations } from "../object/tree-diff";
+import { calculateOperations, withOperations } from "../object/tree-diff";
 import { formatOperation, Operation } from "../operations";
 
 console.log('===== TEST "object.tree-diff" =====');
@@ -83,7 +83,7 @@ for (let i = 0; i < changes.length; i++) {
 }
 
 console.log('Applying changes:');
-const TREE_NEW = applyOperations(TREE_A, changes);
+const TREE_NEW = withOperations(TREE_A, changes);
 if (TREE_A.getNode('a')!.getNode('idk')!.value !== 123) {
     console.error('TREE_A["a"]["idk"] does not equal 123 after applyOperations!');
     process.exit(1);
@@ -109,7 +109,7 @@ if (leftover.length) {
     const changes = calculateOperations(TREE_B, TREE_A);
     console.log('Calculated changes from TREE_B to TREE_A:');
     changes.map(formatOperation).forEach(o => console.log('  -', o));
-    const TREE_NEW = applyOperations(TREE_B, changes);
+    const TREE_NEW = withOperations(TREE_B, changes);
     const tree_new_json = JSON.stringify(TREE_NEW.value);
     const tree_a_json = JSON.stringify(TREE_A.value);
     if (tree_new_json !== tree_a_json) {
@@ -127,7 +127,7 @@ if (leftover.length) {
         return calculateOperations(new Tree(a), new Tree(b));
     }
     function applyOperationsToObject(obj: object, operations: Operation[]): object {
-        return applyOperations(new Tree(obj), operations).value;
+        return withOperations(new Tree(obj), operations).value;
     }
     const changes = changesForObjects(DATA_A, DATA_B);
     changes.map(formatOperation).forEach(o => console.log('  -', o));
