@@ -1,0 +1,28 @@
+{
+    "name": "crdt-tree",
+    "private": true,
+    "version": "0.1.0",
+    "description": "",
+    "main": "out/index.js",
+    "scripts": {
+        "start": "node out/index.js",
+        "start:dev": "node -r source-map-support/register out/index.js",
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "author": {
+        "name": "Kelvin Schoofs",
+        "email": "schoofs.kelvin@gmail.com",
+        "url": "https://github.com/schoofskelvin"
+    },
+    "license": "ISC",
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^10",
+        "source-map-support": "^0.5.19",
+        "typescript": "^4.0.3"
+    }
+}
