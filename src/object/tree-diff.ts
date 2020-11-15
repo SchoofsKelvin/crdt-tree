@@ -8,7 +8,7 @@ function getSetValue(value: any, path: Key[]): Operation {
 }
 
 function calculateChanges(a: Tree, b: Tree, path: Key[]): Operation[] {
-    if (!a.isLeaf && !b.isLeaf) return calculateOperations(a as Tree, b as Tree, path);
+    if (!a.isLeaf && !b.isLeaf) return calculateOperations(a, b, path);
     if (a.isLeaf && b.isLeaf) {
         const { value: valueA } = a;
         const { value: valueB } = b;
@@ -58,8 +58,12 @@ export function applyOperation(tree: Tree, operation: Operation): void {
     }
 }
 
-export function applyOperations(tree: Tree, operations: Operation[]): Tree {
+export function applyOperations(tree: Tree, operations: Operation[]): void {
+    for (const operation of operations) applyOperation(tree, operation);
+}
+
+export function withOperations(tree: Tree, operations: Operation[]): Tree {
     const result = tree.clone();
-    for (const operation of operations) applyOperation(result, operation);
+    applyOperations(tree, operations);
     return result;
 }
