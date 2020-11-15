@@ -1,13 +1,14 @@
 {
     "name": "crdt-tree",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "",
     "main": "out/index.js",
     "scripts": {
         "start": "node out/index.js",
         "start:dev": "node -r source-map-support/register out/index.js",
         "build": "tsc",
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "prepublishOnly": "tsc"
     },
     "keywords": [],
     "author": {
